@@ -17,17 +17,22 @@ public class AddressBookService implements IAddressBookService {
 
     @Override
     public List<AddressBookModel> getAllEntries() {
-        log.info("Fetching all address book entries");
+        log.debug("Fetching all address book entries");  // DEBUG log for dev
         return contactList;
     }
 
     @Override
     public AddressBookModel getEntryById(int id) {
         log.info("Fetching entry with ID: {}", id);
-        return contactList.stream()
-                .filter(contact -> contact.getId() == id)
+        AddressBookModel contact = contactList.stream()
+                .filter(c -> c.getId() == id)
                 .findFirst()
                 .orElse(null);
+
+        if (contact == null) {
+            log.warn("No entry found with ID: {}", id);
+        }
+        return contact;
     }
 
     @Override
@@ -35,6 +40,7 @@ public class AddressBookService implements IAddressBookService {
         log.info("Creating new entry with name: {}", dto.getName());
         AddressBookModel contact = new AddressBookModel(contactIdCounter++, dto.getName());
         contactList.add(contact);
+        log.debug("Entry created successfully: {}", contact);
         return contact;
     }
 
@@ -47,10 +53,10 @@ public class AddressBookService implements IAddressBookService {
 
         if (contactOpt.isPresent()) {
             contactOpt.get().setName(dto.getName());
-            log.info("Updated entry with ID: {}", id);
+            log.debug("Updated entry successfully: {}", contactOpt.get());
             return contactOpt.get();
         }
-        log.warn("Entry with ID: {} not found", id);
+        log.warn("Update failed: No entry found with ID: {}", id);
         return null;
     }
 
@@ -61,7 +67,7 @@ public class AddressBookService implements IAddressBookService {
         if (removed) {
             log.info("Successfully deleted entry with ID: {}", id);
         } else {
-            log.warn("Failed to delete entry. ID: {} not found", id);
+            log.warn("Deletion failed: No entry found with ID: {}", id);
         }
         return removed;
     }

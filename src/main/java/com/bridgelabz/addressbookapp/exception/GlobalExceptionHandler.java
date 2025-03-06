@@ -22,4 +22,12 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST); // Returns 400 Bad Request
     }
+
+    @ExceptionHandler(AddressBookException.class) // Handles Address Book ID not found errors
+    public ResponseEntity<Map<String, String>> handleAddressBookException(AddressBookException ex) {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("message", ex.getMessage()); // Custom error message
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND); // Returns 404 Not Found
+    }
 }

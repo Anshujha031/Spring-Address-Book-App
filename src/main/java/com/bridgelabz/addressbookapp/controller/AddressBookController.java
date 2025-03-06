@@ -2,49 +2,46 @@ package com.bridgelabz.addressbookapp.controller;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.model.AddressBookModel;
+import com.bridgelabz.addressbookapp.service.IAddressBookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
-    private final Map<Integer, AddressBookModel> contactMap = new HashMap<>();
-    private int contactIdCounter = 1;
+
+    @Autowired
+    private IAddressBookService addressBookService;
 
     @GetMapping
     public ResponseEntity<Map<Integer, AddressBookModel>> getAllEntries() {
-        return ResponseEntity.ok(contactMap);
+        return ResponseEntity.ok(addressBookService.getAllEntries());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AddressBookModel> getEntryById(@PathVariable int id) {
-        return contactMap.containsKey(id)
-                ? ResponseEntity.ok(contactMap.get(id))
-                : ResponseEntity.notFound().build();
+        AddressBookModel contact = addressBookService.getEntryById(id);
+        return contact != null ? ResponseEntity.ok(contact) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity<String> createEntry(@RequestBody AddressBookDTO dto) {
-        AddressBookModel contact = new AddressBookModel(contactIdCounter++, dto.name);
-        contactMap.put(contact.getId(), contact);
-        return ResponseEntity.ok("Contact created successfully with ID: " + contact.getId());
+    public ResponseEntity<AddressBookModel> createEntry(@RequestBody AddressBookDTO dto) {
+        AddressBookModel createdContact = addressBookService.createEntry(dto);
+        return ResponseEntity.ok(createdContact);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateEntry(@PathVariable int id, @RequestBody AddressBookDTO dto) {
-        if (contactMap.containsKey(id)) {
-            contactMap.get(id).setName(dto.name);
-            return ResponseEntity.ok("Contact updated successfully!");
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<AddressBookModel> updateEntry(@PathVariable int id, @RequestBody AddressBookDTO dto) {
+        AddressBookModel updatedContact = addressBookService.updateEntry(id, dto);
+        return updatedContact != null ? ResponseEntity.ok(updatedContact) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEntry(@PathVariable int id) {
-        return contactMap.remove(id) != null
+        return addressBookService.deleteEntry(id)
                 ? ResponseEntity.ok("Contact deleted successfully!")
                 : ResponseEntity.notFound().build();
     }

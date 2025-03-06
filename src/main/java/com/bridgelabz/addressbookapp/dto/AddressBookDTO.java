@@ -1,9 +1,9 @@
 package com.bridgelabz.addressbookapp.dto;
 
-public class AddressBookDTO {
-    public String name;  // For now, we only take a name
+import lombok.Data;
 
-    public AddressBookDTO(String name) {
-        this.name = name;
-    }
+@Data  // Lombok annotation to generate getters, setters, toString, equals, and hashCode
+public class AddressBookDTO {
+
+    private String name;
 }

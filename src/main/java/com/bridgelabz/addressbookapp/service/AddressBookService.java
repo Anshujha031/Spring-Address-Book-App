@@ -28,7 +28,7 @@ public class AddressBookService implements IAddressBookService {
 
     @Override
     public AddressBookModel createEntry(AddressBookDTO dto) {
-        AddressBookModel contact = new AddressBookModel(contactIdCounter++, dto.name);
+        AddressBookModel contact = new AddressBookModel(contactIdCounter++, dto.getName());
         contactList.add(contact);
         return contact;
     }
@@ -40,7 +40,7 @@ public class AddressBookService implements IAddressBookService {
                 .findFirst();
 
         if (contactOpt.isPresent()) {
-            contactOpt.get().setName(dto.name);
+            contactOpt.get().setName(dto.getName());
             return contactOpt.get();
         }
         return null;

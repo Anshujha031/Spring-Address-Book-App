@@ -3,6 +3,7 @@ package com.bridgelabz.addressbookapp.controller;
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.model.AddressBookModel;
 import com.bridgelabz.addressbookapp.service.IAddressBookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +29,13 @@ public class AddressBookController {
     }
 
     @PostMapping
-    public ResponseEntity<AddressBookModel> createEntry(@RequestBody AddressBookDTO dto) {
+    public ResponseEntity<AddressBookModel> createEntry(@Valid @RequestBody AddressBookDTO dto) {
         AddressBookModel createdContact = addressBookService.createEntry(dto);
         return ResponseEntity.ok(createdContact);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AddressBookModel> updateEntry(@PathVariable int id, @RequestBody AddressBookDTO dto) {
+    public ResponseEntity<AddressBookModel> updateEntry(@PathVariable int id, @Valid @RequestBody AddressBookDTO dto) {
         AddressBookModel updatedContact = addressBookService.updateEntry(id, dto);
         return updatedContact != null ? ResponseEntity.ok(updatedContact) : ResponseEntity.notFound().build();
     }

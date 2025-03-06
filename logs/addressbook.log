@@ -1,0 +1,17 @@
+2025-03-06T15:14:07.908+05:30  INFO 24244 --- [AddressBookApp] [main] c.b.a.AddressBookAppApplication          : Starting AddressBookAppApplication using Java 23.0.2 with PID 24244 (F:\CG-Training\AddressBookApp\target\classes started by DELL in F:\CG-Training\AddressBookApp)
+2025-03-06T15:14:07.911+05:30 DEBUG 24244 --- [AddressBookApp] [main] c.b.a.AddressBookAppApplication          : Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-03-06T15:14:07.913+05:30  INFO 24244 --- [AddressBookApp] [main] c.b.a.AddressBookAppApplication          : No active profile set, falling back to 1 default profile: "default"
+2025-03-06T15:14:09.806+05:30  INFO 24244 --- [AddressBookApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-03-06T15:14:09.827+05:30  INFO 24244 --- [AddressBookApp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-06T15:14:09.828+05:30  INFO 24244 --- [AddressBookApp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-03-06T15:14:09.894+05:30  INFO 24244 --- [AddressBookApp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-06T15:14:09.894+05:30  INFO 24244 --- [AddressBookApp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1874 ms
+2025-03-06T15:14:10.523+05:30  INFO 24244 --- [AddressBookApp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-03-06T15:14:10.538+05:30  INFO 24244 --- [AddressBookApp] [main] c.b.a.AddressBookAppApplication          : Started AddressBookAppApplication in 3.554 seconds (process running for 4.258)
+2025-03-06T15:14:21.427+05:30  INFO 24244 --- [AddressBookApp] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-06T15:14:21.427+05:30  INFO 24244 --- [AddressBookApp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-06T15:14:21.429+05:30  INFO 24244 --- [AddressBookApp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-03-06T15:14:21.543+05:30  INFO 24244 --- [AddressBookApp] [http-nio-8080-exec-2] c.b.a.service.AddressBookService         : Creating new entry with name: Naveen
+2025-03-06T15:14:28.233+05:30  INFO 24244 --- [AddressBookApp] [http-nio-8080-exec-3] c.b.a.service.AddressBookService         : Fetching all address book entries
+2025-03-06T15:14:31.253+05:30  INFO 24244 --- [AddressBookApp] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-06T15:14:31.273+05:30  INFO 24244 --- [AddressBookApp] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete

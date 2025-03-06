@@ -1,43 +1,53 @@
 package com.bridgelabz.addressbookapp.service;
+
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.model.AddressBookModel;
 import org.springframework.stereotype.Service;
-import java.util.HashMap;
-import java.util.Map;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressBookService implements IAddressBookService {
-    private final Map<Integer, AddressBookModel> contactMap = new HashMap<>();
+    private final List<AddressBookModel> contactList = new ArrayList<>();
     private int contactIdCounter = 1;
 
     @Override
-    public Map<Integer, AddressBookModel> getAllEntries() {
-        return contactMap;
+    public List<AddressBookModel> getAllEntries() {
+        return contactList;
     }
 
     @Override
     public AddressBookModel getEntryById(int id) {
-        return contactMap.get(id);
+        return contactList.stream()
+                .filter(contact -> contact.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
     public AddressBookModel createEntry(AddressBookDTO dto) {
         AddressBookModel contact = new AddressBookModel(contactIdCounter++, dto.name);
-        contactMap.put(contact.getId(), contact);
+        contactList.add(contact);
         return contact;
     }
 
     @Override
     public AddressBookModel updateEntry(int id, AddressBookDTO dto) {
-        if (contactMap.containsKey(id)) {
-            contactMap.get(id).setName(dto.name);
-            return contactMap.get(id);
+        Optional<AddressBookModel> contactOpt = contactList.stream()
+                .filter(contact -> contact.getId() == id)
+                .findFirst();
+
+        if (contactOpt.isPresent()) {
+            contactOpt.get().setName(dto.name);
+            return contactOpt.get();
         }
         return null;
     }
 
     @Override
     public boolean deleteEntry(int id) {
-        return contactMap.remove(id) != null;
+        return contactList.removeIf(contact -> contact.getId() == id);
     }
 }

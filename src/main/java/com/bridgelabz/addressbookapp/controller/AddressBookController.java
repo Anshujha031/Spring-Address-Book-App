@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/addressbook")
@@ -17,7 +17,7 @@ public class AddressBookController {
     private IAddressBookService addressBookService;
 
     @GetMapping
-    public ResponseEntity<Map<Integer, AddressBookModel>> getAllEntries() {
+    public ResponseEntity<List<AddressBookModel>> getAllEntries() {
         return ResponseEntity.ok(addressBookService.getAllEntries());
     }
 
